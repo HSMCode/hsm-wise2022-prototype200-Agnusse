@@ -9689,7 +9689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eb9ddd59333cf94aa0bb49ae36e1fc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnSpeed: 70
+  turnSpeed: 120
   walkSpeed: 8
   runSpeed: 14
   force: 60
