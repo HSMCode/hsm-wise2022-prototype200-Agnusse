@@ -653,10 +653,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3145188863864506052, guid: 11d338aea7363d2439d3b7fa72bb1f8f, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3145188863864506052, guid: 11d338aea7363d2439d3b7fa72bb1f8f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c821396f1b779654ab519796b1277cac, type: 2}
+    - target: {fileID: -3145188863864506052, guid: 11d338aea7363d2439d3b7fa72bb1f8f, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 11d338aea7363d2439d3b7fa72bb1f8f, type: 3}
       propertyPath: m_Name
       value: Cadillac_75_Sedan
       objectReference: {fileID: 0}
+    - target: {fileID: 5999455356995157514, guid: 11d338aea7363d2439d3b7fa72bb1f8f, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5999455356995157514, guid: 11d338aea7363d2439d3b7fa72bb1f8f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c7f28c0a34d2451439d2edded19b16be, type: 2}
+    - target: {fileID: 5999455356995157514, guid: 11d338aea7363d2439d3b7fa72bb1f8f, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7de48d53b46490f44a81a3d01d6b37db, type: 2}
+    - target: {fileID: 6758462933392086168, guid: 11d338aea7363d2439d3b7fa72bb1f8f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 933b50362eee4c5498db95d8ffe88e3d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11d338aea7363d2439d3b7fa72bb1f8f, type: 3}
 --- !u!1001 &1872773985
@@ -790,10 +818,6 @@ PrefabInstance:
     - target: {fileID: 2489234319315926954, guid: 646f977f5e937554ba412ed6f0d6e614, type: 3}
       propertyPath: m_Name
       value: EnemySpawner
-      objectReference: {fileID: 0}
-    - target: {fileID: 4504707510702810056, guid: 646f977f5e937554ba412ed6f0d6e614, type: 3}
-      propertyPath: spawnedEnemies
-      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 4504707510702810056, guid: 646f977f5e937554ba412ed6f0d6e614, type: 3}
       propertyPath: Fan.Array.data[0]
