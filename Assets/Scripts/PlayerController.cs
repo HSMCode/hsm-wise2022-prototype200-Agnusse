@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public float jumpTimer;
     public float jumpButtonPressedTime = 1f;
 
+
     // dancing
     private bool isDancing;
     private bool isNotDancing;
@@ -39,9 +40,13 @@ public class PlayerController : MonoBehaviour
     // win condition
     public bool elvisHome;
 
+    //private Animator animator;
+
+    //private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
+        //animator = GetComponent<Animator>();
         //_playerAnim = GetComponent<Animator>();
         _playerRb = GetComponent<Rigidbody>();
 
@@ -132,12 +137,13 @@ public class PlayerController : MonoBehaviour
         {
             isDancing = true;
             isNotDancing = false;
-
+            //animator.SetBool("elvisDance", true);
             print("Elvis uses cool dance move!");
         }
 
         else
         {
+            //animator.SetBool("elvisDance", false);
             isDancing = false;
             isNotDancing = true;
         }
