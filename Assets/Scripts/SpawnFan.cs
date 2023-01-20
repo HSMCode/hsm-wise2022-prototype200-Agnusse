@@ -13,20 +13,20 @@ public class SpawnFan : MonoBehaviour
     [SerializeField] int spawnedEnemies;
 
     // This repeat rate is only changeable before starting the scene, to change the repeat rate on runtime we need a different solution
-    [SerializeField] float repeatRateOnStart = 2f;
+    [SerializeField] float repeatRateOnStart = 1f;
 
 
     // Start is called before the first frame update
     void Start()
     {
         // With Invoke Repeating only the parameters generated inside the method can be controlled
-        InvokeRepeating("SpawningEnemies", 3f, repeatRateOnStart);
+        InvokeRepeating("SpawningEnemies", 1f, repeatRateOnStart);
     }
 
     private Vector3 GenerateSpawnPosition()
     {
         // Create a random enemy spawn position 
-        Vector3 enemySpawnPos = new Vector3(Random.Range(-enemySpawnBoundsMax, enemySpawnBoundsMax), 1,
+        Vector3 enemySpawnPos = new Vector3(Random.Range(-enemySpawnBoundsMax, enemySpawnBoundsMax), 0,
             Random.Range(-enemySpawnBoundsMax, enemySpawnBoundsMax));
             
         // Long form writing for the above Vector3 in line 36. This generates both vectors first and then assembles them
@@ -42,7 +42,7 @@ public class SpawnFan : MonoBehaviour
         // NOTE: Little hack to have a bit more control over the repeatRate, we can bind this to the enemies spawned. We'll change this soon.
         float repeatRateModifier = Random.Range(0, 10);
 
-        if (repeatRateModifier <= 5)
+        if (repeatRateModifier <= 10)
         {
             // Get a random slot from the enemy prefab array
             int number = Random.Range(0, Enemies.Length);
