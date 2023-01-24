@@ -12,6 +12,9 @@ public class MoveFan : MonoBehaviour
 
     [SerializeField] float speed;
 
+
+    private Updater _Updater;
+
     
     void Start()
     {
@@ -20,7 +23,7 @@ public class MoveFan : MonoBehaviour
         // make sure to set the tag "Player" on your player character for this to work
         _player = GameObject.FindWithTag("Player");
 
-        // _updateScoreTimerScript = GameObject.Find("UpdateScoreTimer").GetComponent<UpdateScoreTimer>();
+        _Updater = GameObject.Find("Updater").GetComponent<Updater>();
     }
     
     void FixedUpdate()
@@ -35,6 +38,8 @@ public class MoveFan : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
+            // _Updater.reduceLives(); 
+
             // _updateScoreTimerScript.AddEnemiesCounter();
             Destroy(this.gameObject);
         }
