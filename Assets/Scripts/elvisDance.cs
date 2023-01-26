@@ -42,7 +42,7 @@ public class elvisDance : MonoBehaviour
 
 
         //Dance Moves
-        if (Input.GetKey("p"))
+        if (Input.GetKey("space"))
         {
             animator.SetBool("elvisDance", true);
         }

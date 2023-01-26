@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // DANCING
-            if (Input.GetKey("p"))
+            if (Input.GetKey("space"))
             {
                 isDancing = true;
                 isNotDancing = false;

@@ -88,11 +88,11 @@ public class Updater : MonoBehaviour
 
             if (gameLost)
             {
-                _result.text = "Hagottsackradie du depp host valoan";
+                _result.text = "You Lost! Maybe you can save Elvis next time.";
             }
             else 
             {
-                _result.text = "ja leck mi am osch du hosd gwunna";
+                _result.text = "Congratulations, you won!";
             }
            
         }
