@@ -37,18 +37,20 @@ public class Updater : MonoBehaviour
     public bool gameOver;
     private bool gameWon;
     private bool gameLost;
-
+    private PlayerController _PlayerController;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
+
+         _PlayerController = GameObject.Find("Player").GetComponent<PlayerController>();
+
         // find particle systems
         ParticleSystemPlayerWin = GameObject.Find("ParticleSystemPlayerWin").GetComponent<ParticleSystem>();
         ParticleSystemPlayerHurt = GameObject.Find("ParticleSystemPlayerHurt").GetComponent<ParticleSystem>();
-        ParticleSystemEnemyHurt = GameObject.Find("ParticleSystemEnemyHurt").GetComponent<ParticleSystem>();
-
+        
         // find Enemy Fan
         Fan = GameObject.FindWithTag("Enemy");
 
@@ -133,6 +135,7 @@ public class Updater : MonoBehaviour
             print("Elvis died!");
             gameOver = true;
             gameLost = true;
+            _PlayerController.gameOff();
         }
 
         // Game Over WIN

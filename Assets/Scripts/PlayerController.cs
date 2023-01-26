@@ -7,20 +7,14 @@ public class PlayerController : MonoBehaviour
     //variables for movement
     private float horizontalInput;
     private float forwardInput;
+    private bool gameOn;
+
+    // private MoveFan _MoveFan;
 
     [SerializeField] float turnSpeed;
     [SerializeField] float walkSpeed;
     [SerializeField] float runSpeed;
-    public float force;
-    public float gravityModifier = 1f;
 
-    public bool isGrounded;
-    public bool isJumping;
-    public bool isFalling;
-    public bool isLanding;
-    public bool jumpCancelled;
-    public float jumpTimer;
-    public float jumpButtonPressedTime = 1f;
 
 
     // dancing
@@ -46,6 +40,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameOn = true;
+        // _MoveFan = GameObject.FindWithTag("Enemy").GetComponent<MoveFan>();
         //animator = GetComponent<Animator>();
         //_playerAnim = GetComponent<Animator>();
         _playerRb = GetComponent<Rigidbody>();
@@ -60,128 +56,58 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // WALKING and RUNNING
-        horizontalInput = Input.GetAxis("Horizontal");
-        forwardInput = Input.GetAxis("Vertical");
-
-        transform.Translate(Vector3.forward * forwardInput * Time.deltaTime * walkSpeed);
-        transform.Rotate(Vector3.up * horizontalInput * Time.deltaTime * turnSpeed);
-
-        // walking animation
-        if (forwardInput != 0 || horizontalInput != 0)
+        if (gameOn)
         {
-            //_playerAnim.SetBool("Walk", true);
-        }
+                // WALKING and RUNNING
+            horizontalInput = Input.GetAxis("Horizontal");
+            forwardInput = Input.GetAxis("Vertical");
 
-        else
-        {
-            //_playerAnim.SetBool("Walk", false);
-        }
+            transform.Translate(Vector3.forward * forwardInput * Time.deltaTime * walkSpeed);
+            transform.Rotate(Vector3.up * horizontalInput * Time.deltaTime * turnSpeed);
 
-        // running animation and more speed
-        if (forwardInput != 0 && Input.GetKey(KeyCode.LeftShift))
-        {
-            //_playerAnim.SetBool("Run", true);
-            transform.Translate(Vector3.forward * forwardInput * Time.deltaTime * runSpeed);
-        }
-
-        else
-        {
-            //_playerAnim.SetBool("Run", false);
-        }
-
-        // press space to jump - player is JUMPING
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isJumping)
-        {
-            isGrounded = false;
-            isJumping = true;
-
-            if (isJumping)
+            // walking animation
+            if (forwardInput != 0 || horizontalInput != 0)
             {
-                //_playerAnim.SetTrigger("Jump");
-            }
-        }
-
-        // release space to start falling - player is falling
-        if (isJumping)
-        {
-            jumpTimer += Time.deltaTime;
-
-            if (Input.GetKeyUp(KeyCode.Space))
-            {
-                isJumping = false;
-                isFalling = true;
-
-                if (isFalling)
-                {
-                    //_playerAnim.SetBool("Fall", true);
-                }
+                //_playerAnim.SetBool("Walk", true);
             }
 
-            if (jumpTimer > jumpButtonPressedTime)
+            else
             {
-                isJumping = false;
-                jumpCancelled = true;
+                //_playerAnim.SetBool("Walk", false);
             }
-        }
 
-        if (_playerRb.velocity.y < 0 && isFalling)
-        {
-            isFalling = false;
-            isLanding = true;
-            //_playerAnim.SetBool("Fall", false);
-        }
+            // running animation and more speed
+            if (forwardInput != 0 && Input.GetKey(KeyCode.LeftShift))
+            {
+                //_playerAnim.SetBool("Run", true);
+                transform.Translate(Vector3.forward * forwardInput * Time.deltaTime * runSpeed);
+            }
 
-        // DANCING
-        if (Input.GetKey("p"))
-        {
-            isDancing = true;
-            isNotDancing = false;
-            //animator.SetBool("elvisDance", true);
-            print("Elvis uses cool dance move!");
-        }
+            else
+            {
+                //_playerAnim.SetBool("Run", false);
+            }
 
-        else
-        {
-            //animator.SetBool("elvisDance", false);
-            isDancing = false;
-            isNotDancing = true;
+            // DANCING
+            if (Input.GetKey("p"))
+            {
+                isDancing = true;
+                isNotDancing = false;
+                //animator.SetBool("elvisDance", true);
+                print("Elvis uses cool dance move!");
+            }
+
+            else
+            {
+                //animator.SetBool("elvisDance", false);
+                isDancing = false;
+                isNotDancing = true;
+            }
         }
     }
-
-    void FixedUpdate()
-    {
-        if (isJumping)
-        {
-            gravityModifier = 1f;
-            _playerRb.AddForce(Vector3.up * force, ForceMode.Force);
-        }
-
-        if (isFalling || isGrounded || isLanding || jumpCancelled)
-        {
-            gravityModifier = 25f;
-        }
-
-        _playerRb.AddForce(Physics.gravity * (gravityModifier - 1) * _playerRb.mass);
-    }
-
     // COLLISIONS
     private void OnCollisionEnter(Collision collision)
     {
-        // Player is on Ground
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = true;
-            jumpTimer = 0f;
-            jumpCancelled = false;
-
-            if (isLanding)
-            {
-                //_playerAnim.SetBool("Land", false);
-                isLanding = false;
-            }
-        }
-
         // Player is Hit
         if (collision.gameObject.CompareTag("Enemy") && isNotDancing)
         {
@@ -206,7 +132,21 @@ public class PlayerController : MonoBehaviour
             _updater.CheckGameOver(elvisHome = true);
 
             print("Elvis is safe now!");
+
+            gameOff();
+            // _MoveFan.gameOff();
+            
         }
+    }
+     public void gameOff()
+    {
+        gameOn = false;
+
+    }
+
+    public bool isGameOn()
+    {
+       return gameOn; 
     }
 }
 

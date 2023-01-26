@@ -44,10 +44,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Enemies:
-  - {fileID: 12534062416928868, guid: 3554ed56abd167946a680da16b5b66ab, type: 3}
+  - {fileID: 7353840194799769151, guid: 12770c522ba46bd4490edeb4b43c5b3d, type: 3}
   - {fileID: 495886608884975644, guid: 7335a2d9400d1e94f800a096025684a5, type: 3}
   - {fileID: 1560977216218862328, guid: 2cc02c0b6a2fa4f4abaf0bb77993d2f3, type: 3}
-  - {fileID: 3173511178108166742, guid: ae3993b5728a697429e57f4164d1e876, type: 3}
+  - {fileID: 8896009094307392550, guid: bb480c7b12ff5ad4598e9d49e769f32d, type: 3}
   enemySpawnBoundsMax: 50
   spawnedEnemies: 60
   repeatRateOnStart: 1

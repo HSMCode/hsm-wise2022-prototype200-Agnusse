@@ -8,16 +8,25 @@ public class MoveFan : MonoBehaviour
 {
     private Rigidbody _enemyRb;
     private GameObject _player;
+    private Animator animator;
+    private PlayerController _PlayerController;
+
+    // private bool gameOn;
     // private UpdateScoreTimer _updateScoreTimerScript;
 
     [SerializeField] float speed;
 
 
     private Updater _Updater;
-
     
     void Start()
     {
+        _PlayerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        // gameOn = true;
+
+
+
+        animator = GetComponent<Animator>();
         _enemyRb = GetComponent<Rigidbody>();
         
         // make sure to set the tag "Player" on your player character for this to work
@@ -28,9 +37,13 @@ public class MoveFan : MonoBehaviour
     
     void FixedUpdate()
     {
+
+        if (_PlayerController.isGameOn())
+        {
         // move the enemy to the vector position of the player
         _enemyRb.AddForce((_player.transform.position - transform.position).normalized * speed);
         // Debug.Log("Player: " + _player.transform.position + "Enemy: " + transform.position);
+        }
     }
 
 
@@ -56,4 +69,9 @@ public class MoveFan : MonoBehaviour
             Gizmos.DrawLine(transform.position, _player.transform.position);
         }
     }
+
+    // public void gameOff()
+    // {
+    //     gameOn = false;
+    // }
 }

@@ -9652,6 +9652,7 @@ GameObject:
   - component: {fileID: 5438285864173426249}
   - component: {fileID: 7663839312508009926}
   - component: {fileID: 161221493593726390}
+  - component: {fileID: 3077200526957971404}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -9692,15 +9693,6 @@ MonoBehaviour:
   turnSpeed: 120
   walkSpeed: 8
   runSpeed: 14
-  force: 60
-  gravityModifier: 10
-  isGrounded: 1
-  isJumping: 0
-  isFalling: 0
-  isLanding: 0
-  jumpCancelled: 0
-  jumpTimer: 0
-  jumpButtonPressedTime: 1
   elvisHit: 1
   fanHit: 1
   elvisHome: 0
@@ -9734,6 +9726,31 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!95 &3077200526957971404
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4578905463671701180}
+  m_Enabled: 0
+  m_Avatar: {fileID: 9000000, guid: 764ff0b72b27ba447a31ace87c0a1db3, type: 3}
+  m_Controller: {fileID: 9100000, guid: 557b2d500f8cce54fb2a2a786f40ef97, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
+    'mixamorig:LeftHandIndex1'\n\tTransform 'mixamorig:LeftHandPinky2'\n\tTransform
+    'mixamorig:RightHandRing2'\n\tTransform 'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform
+    'mixamorig:RightArm'\n\tTransform 'mixamorig:LeftLeg'\n\tTransform 'mixamorig:LeftHandMiddle3'\n\tand
+    more ...\n\tFrom animation clip 'mixamo.com'"
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8286057608661406130
 GameObject:
   m_ObjectHideFlags: 0
@@ -9852,6 +9869,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 764ff0b72b27ba447a31ace87c0a1db3, type: 3}
       propertyPath: m_TagString
       value: BigVegas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 764ff0b72b27ba447a31ace87c0a1db3, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 557b2d500f8cce54fb2a2a786f40ef97, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 764ff0b72b27ba447a31ace87c0a1db3, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 764ff0b72b27ba447a31ace87c0a1db3, type: 3}
