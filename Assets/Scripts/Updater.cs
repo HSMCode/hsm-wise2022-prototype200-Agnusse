@@ -24,18 +24,18 @@ public class Updater : MonoBehaviour
     public int fanHit;
     private int _currentFanHits;
     private int _fanDead = 3;
-
     public GameObject Fan;
 
     // audiovisual feedback
     public ParticleSystem ParticleSystemPlayerWin;
     public ParticleSystem ParticleSystemPlayerHurt;
-    public ParticleSystem ParticleSystemEnemyHurt;
+    // public ParticleSystem ParticleSystemEnemyHurt;
 
     // variables for game over
     public bool elvisHome;
     public bool gameOver;
-    private bool gameWon;
+    
+    // private bool gameWon;
     private bool gameLost;
     private PlayerController _PlayerController;
 
@@ -84,7 +84,7 @@ public class Updater : MonoBehaviour
 
         if (gameOver) 
         {
-            _livesLeft.text = "LivesLeft: " + elvisLives;
+            _livesLeft.text = "Lives left: " + elvisLives;
 
             if (gameLost)
             {
@@ -121,7 +121,9 @@ public class Updater : MonoBehaviour
 
         // audiovisual feedback
         ParticleSystemPlayerWin.Emit(5);
-        ParticleSystemEnemyHurt.Emit(5);
+
+        // ParticleSystemEnemyHurt.Emit(5);
+        // ParticleSystemPlayerHurt.Emit(5);
         // audio
 
         CheckGameOver(elvisHome);
@@ -142,7 +144,7 @@ public class Updater : MonoBehaviour
         if (elvisHome)
         {
             gameOver = true;
-            gameWon = true;
+            // gameWon = true;
         }
 
         // Game OVER

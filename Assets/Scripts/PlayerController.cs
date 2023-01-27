@@ -5,15 +5,17 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     //variables for movement
-    private float horizontalInput;
-    private float forwardInput;
+    // private float horizontalInput;
+    // private float forwardInput;
+
+
     private bool gameOn;
 
     // private MoveFan _MoveFan;
 
-    [SerializeField] float turnSpeed;
-    [SerializeField] float walkSpeed;
-    [SerializeField] float runSpeed;
+    // [SerializeField] float turnSpeed;
+    // [SerializeField] float walkSpeed;
+    // [SerializeField] float runSpeed;
 
 
 
@@ -58,35 +60,35 @@ public class PlayerController : MonoBehaviour
     {
         if (gameOn)
         {
-                // WALKING and RUNNING
-            horizontalInput = Input.GetAxis("Horizontal");
-            forwardInput = Input.GetAxis("Vertical");
+            //     // WALKING and RUNNING
+            // horizontalInput = Input.GetAxis("Horizontal");
+            // forwardInput = Input.GetAxis("Vertical");
 
-            transform.Translate(Vector3.forward * forwardInput * Time.deltaTime * walkSpeed);
-            transform.Rotate(Vector3.up * horizontalInput * Time.deltaTime * turnSpeed);
+            // transform.Translate(Vector3.forward * forwardInput * Time.deltaTime * walkSpeed);
+            // transform.Rotate(Vector3.up * horizontalInput * Time.deltaTime * turnSpeed);
 
-            // walking animation
-            if (forwardInput != 0 || horizontalInput != 0)
-            {
-                //_playerAnim.SetBool("Walk", true);
-            }
+            // // walking animation
+            // if (forwardInput != 0 || horizontalInput != 0)
+            // {
+            //     //_playerAnim.SetBool("Walk", true);
+            // }
 
-            else
-            {
-                //_playerAnim.SetBool("Walk", false);
-            }
+            // else
+            // {
+            //     //_playerAnim.SetBool("Walk", false);
+            // }
 
-            // running animation and more speed
-            if (forwardInput != 0 && Input.GetKey(KeyCode.LeftShift))
-            {
-                //_playerAnim.SetBool("Run", true);
-                transform.Translate(Vector3.forward * forwardInput * Time.deltaTime * runSpeed);
-            }
+            // // running animation and more speed
+            // if (forwardInput != 0 && Input.GetKey(KeyCode.LeftShift))
+            // {
+            //     //_playerAnim.SetBool("Run", true);
+            //     transform.Translate(Vector3.forward * forwardInput * Time.deltaTime * runSpeed);
+            // }
 
-            else
-            {
-                //_playerAnim.SetBool("Run", false);
-            }
+            // else
+            // {
+            //     //_playerAnim.SetBool("Run", false);
+            // }
 
             // DANCING
             if (Input.GetKey("space"))
