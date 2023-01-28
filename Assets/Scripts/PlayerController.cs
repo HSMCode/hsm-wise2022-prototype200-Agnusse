@@ -4,126 +4,108 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    //variables for movement
-    // private float horizontalInput;
-    // private float forwardInput;
-
-
-    private bool gameOn;
-
-    // private MoveFan _MoveFan;
-
-    // [SerializeField] float turnSpeed;
-    // [SerializeField] float walkSpeed;
-    // [SerializeField] float runSpeed;
-
-
+    //moving
+    private float horizontalInput;
+    private float forwardInput;
+    [SerializeField] float turnSpeed;
+    [SerializeField] float walkSpeed;
+    [SerializeField] float runSpeed;
 
     // dancing
     private bool isDancing;
     private bool isNotDancing;
 
     // player components
-    //private Animator _playerAnim;
+    private Animator animator;
     private Rigidbody _playerRb;
 
     //variables for counting hits
     public int elvisHit = 1;
     public int fanHit = 1;
 
-    private Updater _updater;
-
     // win condition
     public bool elvisHome;
 
-    //private Animator animator;
+    //Game is played/not GameOver condition
+    private bool gameOn;
 
-    //private Animator animator;
+    //link to Updater-Script
+    private Updater _updater;
+    
     // Start is called before the first frame update
     void Start()
     {
+        //Starts the game
         gameOn = true;
-        // _MoveFan = GameObject.FindWithTag("Enemy").GetComponent<MoveFan>();
-        //animator = GetComponent<Animator>();
-        //_playerAnim = GetComponent<Animator>();
-        _playerRb = GetComponent<Rigidbody>();
 
-        // link to Updater
-        _updater = GameObject.Find("Updater").GetComponent<Updater>();
-
+        //sets to basic value not dancing
         isDancing = false;
+
+        //sets the goal to not reached
         elvisHome = false;
+
+        // find particle systems
+        _playerRb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
+
+        //find Updater-Script
+        _updater = GameObject.Find("Updater").GetComponent<Updater>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //runs the main script while GameOn
         if (gameOn)
         {
-            //     // WALKING and RUNNING
-            // horizontalInput = Input.GetAxis("Horizontal");
-            // forwardInput = Input.GetAxis("Vertical");
+            //Elvis moves
+            horizontalInput = Input.GetAxis("Horizontal");
+            forwardInput = Input.GetAxis("Vertical");
 
-            // transform.Translate(Vector3.forward * forwardInput * Time.deltaTime * walkSpeed);
-            // transform.Rotate(Vector3.up * horizontalInput * Time.deltaTime * turnSpeed);
+            transform.Translate(Vector3.forward * forwardInput * Time.deltaTime * walkSpeed);
+            transform.Rotate(Vector3.up * horizontalInput * Time.deltaTime * turnSpeed);
 
-            // // walking animation
-            // if (forwardInput != 0 || horizontalInput != 0)
-            // {
-            //     //_playerAnim.SetBool("Walk", true);
-            // }
+            // running animation
+            if (forwardInput != 0 || horizontalInput != 0)
+            {
+                animator.SetBool("isrunning", true);
+            }
 
-            // else
-            // {
-            //     //_playerAnim.SetBool("Walk", false);
-            // }
-
-            // // running animation and more speed
-            // if (forwardInput != 0 && Input.GetKey(KeyCode.LeftShift))
-            // {
-            //     //_playerAnim.SetBool("Run", true);
-            //     transform.Translate(Vector3.forward * forwardInput * Time.deltaTime * runSpeed);
-            // }
-
-            // else
-            // {
-            //     //_playerAnim.SetBool("Run", false);
-            // }
-
+            else
+            {
+                animator.SetBool("isrunning", false);
+            }
+            
             // DANCING
             if (Input.GetKey("space"))
             {
                 isDancing = true;
                 isNotDancing = false;
-                //animator.SetBool("elvisDance", true);
-                print("Elvis uses cool dance move!");
+                animator.SetBool("elvisDance", true);
             }
 
             else
             {
-                //animator.SetBool("elvisDance", false);
+                animator.SetBool("elvisDance", false);
                 isDancing = false;
                 isNotDancing = true;
             }
         }
     }
+
     // COLLISIONS
     private void OnCollisionEnter(Collision collision)
     {
-        // Player is Hit
+        // Player is Hit while not dancing
         if (collision.gameObject.CompareTag("Enemy") && isNotDancing)
         {
-            print("Elvis was hit!");
-
             // link to Updater
             _updater.UpdateElvis(elvisHit);
         }
 
-        // Player fights Enemy
+        // Player is Hit while dancing
         if (collision.gameObject.CompareTag("Enemy") && isDancing)
         {
-            print("Fan was hit!");
-
             // link to Updater
             _updater.UpdateFan(fanHit);
         }
@@ -131,21 +113,20 @@ public class PlayerController : MonoBehaviour
         // Player reaches Goal
         if (collision.gameObject.CompareTag("Goal"))
         {
+            // link to Updater
             _updater.CheckGameOver(elvisHome = true);
-
-            print("Elvis is safe now!");
-
             gameOff();
-            // _MoveFan.gameOff();
-            
         }
     }
-     public void gameOff()
+     
+    //Ends Game
+    public void gameOff()
     {
         gameOn = false;
 
     }
 
+    //restarts Game
     public bool isGameOn()
     {
        return gameOn; 

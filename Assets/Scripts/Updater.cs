@@ -26,17 +26,18 @@ public class Updater : MonoBehaviour
     private int _fanDead = 3;
     public GameObject Fan;
 
-    // audiovisual feedback
+    // visual feedback
     public ParticleSystem ParticleSystemPlayerWin;
     public ParticleSystem ParticleSystemPlayerHurt;
-    // public ParticleSystem ParticleSystemEnemyHurt;
 
     // variables for game over
     public bool elvisHome;
     public bool gameOver;
-    
-    // private bool gameWon;
+
+    //variable for lost Game
     private bool gameLost;
+
+    //link to PlayerController-Script
     private PlayerController _PlayerController;
 
 
@@ -44,7 +45,7 @@ public class Updater : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        //find PlayerController-Script
          _PlayerController = GameObject.Find("Player").GetComponent<PlayerController>();
 
         // find particle systems
