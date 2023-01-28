@@ -5,18 +5,18 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // variables to move Elvis
-    private float horizontalInput;
-    private float forwardInput;
+    private float _horizontalInput;
+    private float _forwardInput;
     [SerializeField] float turnSpeed;
     [SerializeField] float walkSpeed;
     [SerializeField] float runSpeed;
 
     // variables to make Elvis dance
-    private bool isDancing;
-    private bool isNotDancing;
+    private bool _isDancing;
+    private bool _isNotDancing;
 
     // player components
-    private Animator animator;
+    private Animator _animator;
     private Rigidbody _playerRb;
 
     // variables for counting hits
@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     public bool elvisHome;
 
     // to control if the game is still running or over
-    private bool gameOn;
+    private bool _gameOn;
 
     //link to Updater-Script
     private Updater _updater;
@@ -36,17 +36,17 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         //Starts the game
-        gameOn = true;
+        _gameOn = true;
 
         //sets to basic value not dancing
-        isDancing = false;
+        _isDancing = false;
 
         //sets the goal to not reached
         elvisHome = false;
 
         // get player components
         _playerRb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
 
         //find Updater-Script
         _updater = GameObject.Find("Updater").GetComponent<Updater>();
@@ -56,47 +56,47 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //runs the main script while GameOn
-        if (gameOn)
+        if (_gameOn)
         {
             //Elvis moves
-            horizontalInput = Input.GetAxis("Horizontal");
-            forwardInput = Input.GetAxis("Vertical");
+            _horizontalInput = Input.GetAxis("Horizontal");
+            _forwardInput = Input.GetAxis("Vertical");
 
-            transform.Translate(Vector3.forward * forwardInput * Time.deltaTime * walkSpeed);
-            transform.Rotate(Vector3.up * horizontalInput * Time.deltaTime * turnSpeed);
+            transform.Translate(Vector3.forward * _forwardInput * Time.deltaTime * walkSpeed);
+            transform.Rotate(Vector3.up * _horizontalInput * Time.deltaTime * turnSpeed);
 
             // runs script if keys to make elvis move forward or back or horizontal are pressed
-            if (forwardInput != 0 || horizontalInput != 0)
+            if (_forwardInput != 0 || _horizontalInput != 0)
             {
                 // runnung animation is activated
-                animator.SetBool("isrunning", true);
+                _animator.SetBool("isrunning", true);
             }
 
             else
             {
                 // running animation is deactivated
-                animator.SetBool("isrunning", false);
+                _animator.SetBool("isrunning", false);
             }
             
             // runs script if Space-key is pressed
             if (Input.GetKey("space"))
             {
                 //sets to values to dancing
-                isDancing = true;
-                isNotDancing = false;
+                _isDancing = true;
+                _isNotDancing = false;
 
                 // dance animation is ativated
-                animator.SetBool("elvisDance", true);
+                _animator.SetBool("elvisDance", true);
             }
 
             else
             {
                 // dance animation is deativated
-                animator.SetBool("elvisDance", false);
+                _animator.SetBool("elvisDance", false);
 
                 // sets values to not dancing
-                isDancing = false;
-                isNotDancing = true;
+                _isDancing = false;
+                _isNotDancing = true;
             }
         }
     }
@@ -105,14 +105,14 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // Player is Hit while not dancing
-        if (collision.gameObject.CompareTag("Enemy") && isNotDancing)
+        if (collision.gameObject.CompareTag("Enemy") && _isNotDancing)
         {
             // link to Updater
             _updater.UpdateElvis(elvisHit);
         }
 
         // Player is Hit while dancing
-        if (collision.gameObject.CompareTag("Enemy") && isDancing)
+        if (collision.gameObject.CompareTag("Enemy") && _isDancing)
         {
             // link to Updater
             _updater.UpdateFan(fanHit);
@@ -133,14 +133,14 @@ public class PlayerController : MonoBehaviour
     public void gameOff()
     {
         // sets value to game over
-        gameOn = false;
+        _gameOn = false;
 
     }
 
     public bool isGameOn()
     {
        //returns value gameOn
-       return gameOn; 
+       return _gameOn; 
     }
 }
 

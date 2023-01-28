@@ -8,7 +8,7 @@ public class MoveFan : MonoBehaviour
 {
     // Player components
     private Rigidbody _enemyRb;
-    private Animator animator;
+    private Animator _animator;
     private GameObject _player;
 
     // give Fan runspeed
@@ -24,7 +24,7 @@ public class MoveFan : MonoBehaviour
     void Start()
     {
         // get player Components
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
         _enemyRb = GetComponent<Rigidbody>();
         
         // Find Object Player

@@ -9,26 +9,26 @@ public class SpawnFan : MonoBehaviour
     [SerializeField] GameObject[] Enemies;
 
     //where are the fans being spawned
-    [SerializeField] float enemySpawnBoundsMax = 50f;
+    [SerializeField] float _enemySpawnBoundsMax = 50f;
 
     // Counter for spawned enemies
-    [SerializeField] int spawnedEnemies;
+    [SerializeField] int _spawnedEnemies;
 
     // set repeat rate 
-    [SerializeField] float repeatRateOnStart = 1f;
+    [SerializeField] float _repeatRateOnStart = 1f;
 
 
     // Start is called before the first frame update
     void Start()
     {
         // With Invoke Repeating only the parameters generated inside the method can be controlled
-        InvokeRepeating("SpawningEnemies", 1f, repeatRateOnStart);
+        InvokeRepeating("SpawningEnemies", 1f, _repeatRateOnStart);
     }
 
     private Vector3 GenerateSpawnPosition()
     {
         // Creates a random enemy spawn position 
-        Vector3 enemySpawnPos = new Vector3(Random.Range(-enemySpawnBoundsMax, enemySpawnBoundsMax), 0, Random.Range(-enemySpawnBoundsMax, enemySpawnBoundsMax));
+        Vector3 enemySpawnPos = new Vector3(Random.Range(-_enemySpawnBoundsMax, _enemySpawnBoundsMax), 0, Random.Range(-_enemySpawnBoundsMax, _enemySpawnBoundsMax));
 
         // returns the random position for the enemy
         return enemySpawnPos;
@@ -37,15 +37,8 @@ public class SpawnFan : MonoBehaviour
     // runs script when method SpawningEnemies is called
     void SpawningEnemies()
     {
-
-
-
-        // NOTE: Little hack to have a bit more control over the repeatRate, we can bind this to the enemies spawned. We'll change this soon.
+        // modefies the spawn rate by randomly spawning no enemy
         float repeatRateModifier = Random.Range(0, 10);
-
-
-
-        
 
         //runs script if the repeatRateModifier is 10 or less
         if (repeatRateModifier <= 10)
@@ -56,8 +49,8 @@ public class SpawnFan : MonoBehaviour
             // Instantiate a clone from the prefab enemies at the previously generated position
             Instantiate(Enemies[number], GenerateSpawnPosition(), Enemies[number].transform.rotation);
 
-            // adds 1 ro spawnedEnemies
-            spawnedEnemies++;
+            // adds 1 ro _spawnedEnemies
+            _spawnedEnemies++;
         }
     }
 }

@@ -9,7 +9,7 @@ public class Updater : MonoBehaviour
     // UI
     private GameObject _playGameUI;
     private GameObject _gameOverUI;
-    private string livesText = "Lives: ";
+    private string _livesText = "Lives: ";
     private Text _lives;
     private Text _livesLeft;
     private Text _result;
@@ -17,7 +17,7 @@ public class Updater : MonoBehaviour
     // variables for Elvis
     public int elvisHit=1;
     private int _currentElvisHits=0;
-    private int elvisLives;
+    private int _elvisLives;
 
     // Elvis is dead when hit 5 times
     private int _elvisDead = 5;
@@ -37,12 +37,10 @@ public class Updater : MonoBehaviour
     public bool gameOver;
 
     //variable for lost Game
-    private bool gameLost;
+    private bool _gameLost;
 
     //link to PlayerController-Script
     private PlayerController _PlayerController;
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -84,22 +82,22 @@ public class Updater : MonoBehaviour
         }
 
         // calculate how many lives Elvis has left
-        elvisLives = _elvisDead-_currentElvisHits;
+        _elvisLives = _elvisDead-_currentElvisHits;
 
         // print how many lives Elvis has left on screen
-        _lives.text = livesText + elvisLives.ToString();
+        _lives.text = _livesText + _elvisLives.ToString();
 
         //run script if game is over
         if (gameOver) 
         {
             // exchange text in UI
-            _livesLeft.text = "Lives left: " + elvisLives;
+            _livesLeft.text = "Lives left: " + _elvisLives;
 
             // run script if game is lost
-            if (gameLost)
+            if (_gameLost)
             {
                 // exchange text in UI
-                _result.text = "You Lost! Maybe you can save Elvis next time.";
+                _result.text = "You Lost! Try it again!";
             }
 
             //run script if game is not lost
@@ -147,7 +145,7 @@ public class Updater : MonoBehaviour
             gameOver = true;
 
             // set value to game lost
-            gameLost = true;
+            _gameLost = true;
 
             // run method gameOff in script playerController
             _PlayerController.gameOff();
