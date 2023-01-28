@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    //moving
+    // variables to move Elvis
     private float horizontalInput;
     private float forwardInput;
     [SerializeField] float turnSpeed;
     [SerializeField] float walkSpeed;
     [SerializeField] float runSpeed;
 
-    // dancing
+    // variables to make Elvis dance
     private bool isDancing;
     private bool isNotDancing;
 
@@ -19,14 +19,14 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private Rigidbody _playerRb;
 
-    //variables for counting hits
+    // variables for counting hits
     public int elvisHit = 1;
     public int fanHit = 1;
 
     // win condition
     public bool elvisHome;
 
-    //Game is played/not GameOver condition
+    // to control if the game is still running or over
     private bool gameOn;
 
     //link to Updater-Script
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
         //sets the goal to not reached
         elvisHome = false;
 
-        // find particle systems
+        // get player components
         _playerRb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
 
@@ -65,35 +65,43 @@ public class PlayerController : MonoBehaviour
             transform.Translate(Vector3.forward * forwardInput * Time.deltaTime * walkSpeed);
             transform.Rotate(Vector3.up * horizontalInput * Time.deltaTime * turnSpeed);
 
-            // running animation
+            // runs script if keys to make elvis move forward or back or horizontal are pressed
             if (forwardInput != 0 || horizontalInput != 0)
             {
+                // runnung animation is activated
                 animator.SetBool("isrunning", true);
             }
 
             else
             {
+                // running animation is deactivated
                 animator.SetBool("isrunning", false);
             }
             
-            // DANCING
+            // runs script if Space-key is pressed
             if (Input.GetKey("space"))
             {
+                //sets to values to dancing
                 isDancing = true;
                 isNotDancing = false;
+
+                // dance animation is ativated
                 animator.SetBool("elvisDance", true);
             }
 
             else
             {
+                // dance animation is deativated
                 animator.SetBool("elvisDance", false);
+
+                // sets values to not dancing
                 isDancing = false;
                 isNotDancing = true;
             }
         }
     }
 
-    // COLLISIONS
+    // when gameobject Player collides
     private void OnCollisionEnter(Collision collision)
     {
         // Player is Hit while not dancing
@@ -115,6 +123,8 @@ public class PlayerController : MonoBehaviour
         {
             // link to Updater
             _updater.CheckGameOver(elvisHome = true);
+
+            // calls for method gameOff
             gameOff();
         }
     }
@@ -122,13 +132,14 @@ public class PlayerController : MonoBehaviour
     //Ends Game
     public void gameOff()
     {
+        // sets value to game over
         gameOn = false;
 
     }
 
-    //restarts Game
     public bool isGameOn()
     {
+       //returns value gameOn
        return gameOn; 
     }
 }

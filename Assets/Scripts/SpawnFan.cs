@@ -7,12 +7,14 @@ public class SpawnFan : MonoBehaviour
 {
     // Array for enemy prefabs to randomly choose from
     [SerializeField] GameObject[] Enemies;
+
+    //where are the fans being spawned
     [SerializeField] float enemySpawnBoundsMax = 50f;
 
     // Counter for spawned enemies
     [SerializeField] int spawnedEnemies;
 
-    // This repeat rate is only changeable before starting the scene, to change the repeat rate on runtime we need a different solution
+    // set repeat rate 
     [SerializeField] float repeatRateOnStart = 1f;
 
 
@@ -25,23 +27,27 @@ public class SpawnFan : MonoBehaviour
 
     private Vector3 GenerateSpawnPosition()
     {
-        // Create a random enemy spawn position 
-        Vector3 enemySpawnPos = new Vector3(Random.Range(-enemySpawnBoundsMax, enemySpawnBoundsMax), 0,
-            Random.Range(-enemySpawnBoundsMax, enemySpawnBoundsMax));
-            
-        // Long form writing for the above Vector3 in line 36. This generates both vectors first and then assembles them
-        // float enemySpawnPosX = Random.Range(-enemySpawnBoundsMax, enemySpawnBoundsMax);
-        // float enemySpawnPosZ = Random.Range(-enemySpawnBoundsMax, enemySpawnBoundsMax);
-        // Vector3 enemySpawnPos = new Vector3(enemySpawnPosX, 0, enemySpawnPosZ);
+        // Creates a random enemy spawn position 
+        Vector3 enemySpawnPos = new Vector3(Random.Range(-enemySpawnBoundsMax, enemySpawnBoundsMax), 0, Random.Range(-enemySpawnBoundsMax, enemySpawnBoundsMax));
 
+        // returns the random position for the enemy
         return enemySpawnPos;
     }
 
+    // runs script when method SpawningEnemies is called
     void SpawningEnemies()
     {
+
+
+
         // NOTE: Little hack to have a bit more control over the repeatRate, we can bind this to the enemies spawned. We'll change this soon.
         float repeatRateModifier = Random.Range(0, 10);
 
+
+
+        
+
+        //runs script if the repeatRateModifier is 10 or less
         if (repeatRateModifier <= 10)
         {
             // Get a random slot from the enemy prefab array
@@ -50,11 +56,8 @@ public class SpawnFan : MonoBehaviour
             // Instantiate a clone from the prefab enemies at the previously generated position
             Instantiate(Enemies[number], GenerateSpawnPosition(), Enemies[number].transform.rotation);
 
+            // adds 1 ro spawnedEnemies
             spawnedEnemies++;
-        }
-        else
-        {
-            Debug.Log("No enemy for you today!");
         }
     }
 }

@@ -17,16 +17,18 @@ public class Updater : MonoBehaviour
     // variables for Elvis
     public int elvisHit=1;
     private int _currentElvisHits=0;
-    private int _elvisDead = 5;
     private int elvisLives;
+
+    // Elvis is dead when hit 5 times
+    private int _elvisDead = 5;
 
     // variables for Fan
     public int fanHit;
     private int _currentFanHits;
-    private int _fanDead = 3;
     public GameObject Fan;
+    private int _fanDead = 3;
 
-    // visual feedback
+    // variables for visual feedback
     public ParticleSystem ParticleSystemPlayerWin;
     public ParticleSystem ParticleSystemPlayerHurt;
 
@@ -46,7 +48,7 @@ public class Updater : MonoBehaviour
     void Start()
     {
         //find PlayerController-Script
-         _PlayerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        _PlayerController = GameObject.Find("Player").GetComponent<PlayerController>();
 
         // find particle systems
         ParticleSystemPlayerWin = GameObject.Find("ParticleSystemPlayerWin").GetComponent<ParticleSystem>();
@@ -60,98 +62,108 @@ public class Updater : MonoBehaviour
         _livesLeft = GameObject.Find ("LivesLeft").GetComponent<Text>();
         _result= GameObject.Find ("Result").GetComponent<Text>();
 
-        //UI
+        //find UI
         _playGameUI = GameObject.Find ("Play");
         _gameOverUI = GameObject.Find ("GameOver");
 
+        // activate playGameUI
         _playGameUI.SetActive(true);
+
+        // deactivate playGameUI
         _gameOverUI.SetActive(false);
-
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //run script when _currentFanHits is the sme as _fanDead
         if (_currentFanHits == _fanDead)
         {
-            print("Fan died!");
+            // Fan gets destroyed
             Destroy(Fan);
         }
 
+        // calculate how many lives Elvis has left
         elvisLives = _elvisDead-_currentElvisHits;
+
+        // print how many lives Elvis has left on screen
         _lives.text = livesText + elvisLives.ToString();
 
+        //run script if game is over
         if (gameOver) 
         {
+            // exchange text in UI
             _livesLeft.text = "Lives left: " + elvisLives;
 
+            // run script if game is lost
             if (gameLost)
             {
+                // exchange text in UI
                 _result.text = "You Lost! Maybe you can save Elvis next time.";
             }
+
+            //run script if game is not lost
             else 
             {
+                // exchange text in UI
                 _result.text = "Congratulations, you won!";
             }
-           
         }
-
     }
 
-   
+    // run script if method UpdateElvis is called
     public void UpdateElvis(int elvisHit)
     {
+        //adds currentElvisHits to ElvisHits
         _currentElvisHits += elvisHit;
 
-        print("Elvis Hits: " + _currentElvisHits);
-
-        // audiovisual feedback
+        // visual feedback
         ParticleSystemPlayerHurt.Emit(5);
-        // audio
-
+   
+        // call method CheckGameOver
         CheckGameOver(elvisHome);
     }
 
+    // run Script if method UpdateFan is called
     public void UpdateFan(int fanHit)
     {
+        //adds currentFanHits to fanHits
         _currentFanHits += fanHit;
 
-        print("Fan Hits: " + _currentFanHits);
-
-        // audiovisual feedback
+        // visual feedback
         ParticleSystemPlayerWin.Emit(5);
 
-        // ParticleSystemEnemyHurt.Emit(5);
-        // ParticleSystemPlayerHurt.Emit(5);
-        // audio
-
+        // call method CheckGameOver
         CheckGameOver(elvisHome);
     }
 
+    // run Script if method CheckGameOver is called
     public void CheckGameOver(bool elvisHome)
     {
-        // Game Over LOST
+        // runs script if _currentElvisHits is the same number as _elvisDead
         if (_currentElvisHits == _elvisDead)
         {
-            print("Elvis died!");
+            // set values to game over 
             gameOver = true;
+
+            // set value to game lost
             gameLost = true;
+
+            // run method gameOff in script playerController
             _PlayerController.gameOff();
         }
 
-        // Game Over WIN
+        // runs script if elvis reaches goal
         if (elvisHome)
         {
+            //sets value to game is over
             gameOver = true;
-            // gameWon = true;
         }
 
-        // Game OVER
+        // runs script if game is over
         if (gameOver)
         {
-            // the game is over, panels change
+            // panels change
             _playGameUI.SetActive(false);
             _gameOverUI.SetActive(true);
         }

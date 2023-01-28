@@ -6,72 +6,55 @@ using UnityEngine.PlayerLoop;
 
 public class MoveFan : MonoBehaviour
 {
+    // Player components
     private Rigidbody _enemyRb;
-    private GameObject _player;
     private Animator animator;
-    private PlayerController _PlayerController;
+    private GameObject _player;
 
-    // private bool gameOn;
-    // private UpdateScoreTimer _updateScoreTimerScript;
-
+    // give Fan runspeed
     [SerializeField] float speed;
 
+    // link to PlayerController-Script
+    private PlayerController _PlayerController;
 
+    // link to Updater-Script
     private Updater _Updater;
     
+     // Start is called before the first frame update
     void Start()
     {
-        _PlayerController = GameObject.Find("Player").GetComponent<PlayerController>();
-        // gameOn = true;
-
-
-
+        // get player Components
         animator = GetComponent<Animator>();
         _enemyRb = GetComponent<Rigidbody>();
         
-        // make sure to set the tag "Player" on your player character for this to work
+        // Find Object Player
         _player = GameObject.FindWithTag("Player");
 
+        // find PlayerController-Script
+        _PlayerController = GameObject.Find("Player").GetComponent<PlayerController>();
+
+        // find Updater-Script
         _Updater = GameObject.Find("Updater").GetComponent<Updater>();
     }
     
     void FixedUpdate()
     {
-
+        // runs script if the game is running in PlayerController_Script 
         if (_PlayerController.isGameOn())
         {
-        // move the enemy to the vector position of the player
-        _enemyRb.AddForce((_player.transform.position - transform.position).normalized * speed);
-        // Debug.Log("Player: " + _player.transform.position + "Enemy: " + transform.position);
+            // move the enemy to the vector position of the player
+            _enemyRb.AddForce((_player.transform.position - transform.position).normalized * speed);
         }
     }
 
-
+    // when gameobject Fan collides
     private void OnCollisionEnter(Collision other)
     {
+        // compares if Fan collides with Player and if that is the case runs script
         if(other.gameObject.CompareTag("Player"))
         {
-            // _Updater.reduceLives(); 
-
-            // _updateScoreTimerScript.AddEnemiesCounter();
+            // Fan gets destroyed
             Destroy(this.gameObject);
         }
     }
-
-
-    // For debugging we can add gizmos to help visualise depth and distance a bit better
-    void OnDrawGizmosSelected()
-    {
-        if (_player != null)
-        {
-            // Draws a blue line from this transform to the target
-            Gizmos.color = Color.blue;
-            Gizmos.DrawLine(transform.position, _player.transform.position);
-        }
-    }
-
-    // public void gameOff()
-    // {
-    //     gameOn = false;
-    // }
 }
