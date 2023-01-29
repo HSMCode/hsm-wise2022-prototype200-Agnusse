@@ -31,6 +31,9 @@ public class PlayerController : MonoBehaviour
 
     //link to Updater-Script
     private Updater _updater;
+
+    //varibles for audio 
+    AudioSource audioData;
     
     // Start is called before the first frame update
     void Start()
@@ -123,6 +126,10 @@ public class PlayerController : MonoBehaviour
         {
             // link to Updater
             _updater.CheckGameOver(elvisHome = true);
+
+            // play Audio
+            audioData = GetComponent<AudioSource>();
+            audioData.Play(0);
 
             // calls for method gameOff
             gameOff();

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Restart : MonoBehaviour
 {
-    // variable for butoon
+    // variable for button
     public Button restartButton;
     
     // Start is called before the first frame update

@@ -32,6 +32,9 @@ public class Updater : MonoBehaviour
     public ParticleSystem ParticleSystemPlayerWin;
     public ParticleSystem ParticleSystemPlayerHurt;
 
+    //varibles for audio 
+    AudioSource audioData;
+
     // variables for game over
     public bool elvisHome;
     public bool gameOver;
@@ -141,6 +144,10 @@ public class Updater : MonoBehaviour
         // runs script if _currentElvisHits is the same number as _elvisDead
         if (_currentElvisHits == _elvisDead)
         {
+              // play Audio
+            audioData = GetComponent<AudioSource>();
+            audioData.Play(0);
+            
             // set values to game over 
             gameOver = true;
 
